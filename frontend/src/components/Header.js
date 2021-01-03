@@ -4,7 +4,13 @@ import { Navbar, Nav, Container } from 'react-bootstrap'
 const Header = () => {
 	return (
 		<header>
-			<Navbar bg='primary' variant='dark' expand='lg' collapseOnSelect>
+			<Navbar
+				className='text-uppercase'
+				bg='primary'
+				variant='dark'
+				expand='lg'
+				collapseOnSelect
+			>
 				<Container>
 					<Navbar.Brand href='/'>React E-Commerce</Navbar.Brand>
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
