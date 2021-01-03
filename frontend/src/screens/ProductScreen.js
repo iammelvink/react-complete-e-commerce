@@ -9,15 +9,18 @@ const ProductScreen = ({ match }) => {
 	const [product, setProduct] = useState({})
 
 	// make request here upon component load
-	useEffect(() => {
-		const fetchProduct = async () => {
-			// destructured data to access directly
-			const { data } = await axios.get(`/api/products/${match.params.id}`)
+	useEffect(
+		() => {
+			const fetchProduct = async () => {
+				// destructured data to access directly
+				const { data } = await axios.get(`/api/products/${match.params.id}`)
 
-			setProduct(data)
-		}
-		fetchProduct()
-	})
+				setProduct(data)
+			}
+			fetchProduct()
+		},
+		[match] // when these change they fire off useEffect
+	)
 	return (
 		<>
 			{/* Back button */}
