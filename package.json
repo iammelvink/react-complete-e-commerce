@@ -1,0 +1,27 @@
+{
+  "name": "react-complete-e-commerce",
+  "version": "1.0.0",
+  "description": "React Complete Full Stack E-Commerce",
+  "main": "index.js",
+  "scripts": {
+      "start": "node backend/server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "14.15.3",
+    "npm": "6.14.9"
+  },
+  "keywords": [
+    "e-commerce",
+    "shopping",
+    "nodejs",
+    "express",
+    "mongodb",
+    "server"
+  ],
+  "author": "Melvin Kisten",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
