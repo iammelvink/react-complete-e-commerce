@@ -5,7 +5,7 @@ import {
 	PRODUCT_LIST_FAIL,
 } from '../constants/productConstants'
 
-// Action creators
+// Actions to get all products
 export const listProducts = () => async (dispatch) => {
 	try {
 		dispatch({ type: PRODUCT_LIST_REQUEST })
