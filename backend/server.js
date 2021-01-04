@@ -1,6 +1,7 @@
-import express from 'express'
+import express, { json } from 'express'
 import dotenv from 'dotenv'
 import colors from 'colors'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
 
 import productRoutes from './routes/productRoutes.js'
@@ -19,6 +20,12 @@ app.get('/', (req, res) => {
 
 // Mount routes to respective imports
 app.use('/api/products', productRoutes)
+
+// Error middleware for 404
+app.use(notFound)
+
+// Error handler middleware
+app.use(errorHandler)
 
 // Set port number
 const PORT = process.env.PORT || 8000

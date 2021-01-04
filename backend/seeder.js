@@ -69,8 +69,3 @@ if (process.argv[2] === '-d') {
 } else {
 	importData()
 }
-
-// if node backend/seeder -d
-// Then destroyData
-//Else importData
-// destroyData ? process.argv[2] === '-d' : importData
