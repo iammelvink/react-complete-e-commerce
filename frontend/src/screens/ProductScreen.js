@@ -131,7 +131,6 @@ const ProductScreen = ({ history, match }) => {
 										/* Sold Out button */
 										<Button
 											className='btn-block'
-											variant='danger'
 											type='button'
 											disabled={product.countInStock === 0}
 										>

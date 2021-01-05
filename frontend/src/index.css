@@ -1,11 +1,23 @@
 main {
 	min-height: 80vh;
 }
-
+h1 {
+	text-transform: uppercase;
+	font-size: 1.8rem;
+	padding: 1rem 0;
+}
+h2 {
+	text-transform: uppercase;
+	font-size: 1.4rem;
+	padding: 0.5rem;
+}
 h3 {
 	padding: 1rem 0;
 }
 
 .rating span {
 	margin: 0.1rem;
+}
+a {
+	color: #000;
 }

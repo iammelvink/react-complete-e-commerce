@@ -23,7 +23,7 @@ const HomeScreen = () => {
 	)
 	return (
 		<>
-			<h1 className='text-uppercase'>Latest Products</h1>
+			<h1>Latest Products</h1>
 			{/* When loading, display Loading...
             On error, display error
             Else display the products */}
