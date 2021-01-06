@@ -93,32 +93,32 @@ const PlaceOrderScreen = () => {
 						</ListGroup.Item>
 					</ListGroup>
 				</Col>
-				{/* Right - Order Summary */}
+				{/* Right Order Summary */}
 				<Col md={4}>
 					<Card>
 						<ListGroup variant='flush'>
 							<ListGroup.Item>
 								<h2>Order Summary</h2>
 							</ListGroup.Item>
-							<ListGroup.Item>
+							<ListGroup.Item className='pushToRight'>
 								<Row>
 									<Col>Items</Col>
 									<Col>R{cart.itemsPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item>
+							<ListGroup.Item className='pushToRight'>
 								<Row>
 									<Col>Shipping</Col>
 									<Col>R{cart.shippingPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item>
+							<ListGroup.Item className='pushToRight'>
 								<Row>
 									<Col>Tax</Col>
 									<Col>R{cart.taxPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item>
+							<ListGroup.Item className='pushToRight'>
 								<Row>
 									<Col>
 										<strong>Total</strong>
