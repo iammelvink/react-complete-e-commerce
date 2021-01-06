@@ -18,6 +18,11 @@ const CartScreen = ({ match, location, history }) => {
 	const cart = useSelector((state) => state.cart)
 	const { cartItems } = cart
 
+	// Add two decimals to price if needed
+	const addDecimals = (num) => {
+		return (Math.round(num * 100) / 100).toFixed(2)
+	}
+
 	// make request here upon component load
 	useEffect(() => {
 		// Fire off action to add item and quantity to cart
@@ -95,15 +100,13 @@ const CartScreen = ({ match, location, history }) => {
 								Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
 								items
 							</h2>
-							<span
-								style={{
-									marginLeft: '0.6rem',
-								}}
-							>
+							<span className='pushToRight'>
 								R
-								{cartItems
-									.reduce((acc, item) => acc + item.qty * item.price, 0)
-									.toFixed(2)}
+								{addDecimals(
+									cartItems
+										.reduce((acc, item) => acc + item.qty * item.price, 0)
+										.toFixed(2)
+								)}
 							</span>
 						</ListGroup.Item>
 						<ListGroup.Item>
