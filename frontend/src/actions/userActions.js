@@ -10,6 +10,9 @@ import {
 	USER_DETAILS_REQUEST,
 	USER_DETAILS_SUCCESS,
 	USER_DETAILS_FAIL,
+	USER_UPDATE_PROFILE_REQUEST,
+	USER_UPDATE_PROFILE_SUCCESS,
+	USER_UPDATE_PROFILE_FAIL,
 } from '../constants/userConstants'
 
 // Actions to login
@@ -111,9 +114,9 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 			},
 		}
 
-		// Make post request to register
+		// Make get request to get user details
 		const { data } = await axios.get(`/api/users/${id}`, config)
-		// Dispatch register
+		// Dispatch user details
 		dispatch({
 			type: USER_DETAILS_SUCCESS,
 			payload: data,
@@ -121,6 +124,49 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 	} catch (error) {
 		dispatch({
 			type: USER_DETAILS_FAIL,
+			payload:
+				// Send a custom error message
+				// Else send a generic error message
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		})
+	}
+}
+// Actions to get user details
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+	try {
+		dispatch({ type: USER_UPDATE_PROFILE_REQUEST })
+
+		// Get userInfo from userLogin by destructuring
+		const {
+			userLogin: { userInfo },
+		} = getState()
+
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${userInfo.token}`,
+			},
+		}
+
+		// Make put request to update user profile
+		const { data } = await axios.put('/api/users/profile', user, config)
+		// Dispatch update profile
+		dispatch({
+			type: USER_UPDATE_PROFILE_SUCCESS,
+			payload: data,
+		})
+		// Dispatch user login success
+		dispatch({
+			type: USER_LOGIN_SUCCESS,
+			payload: data,
+		})
+		// Set user to local storage
+		localStorage.setItem('userInfo', JSON.stringify(data))
+	} catch (error) {
+		dispatch({
+			type: USER_UPDATE_PROFILE_FAIL,
 			payload:
 				// Send a custom error message
 				// Else send a generic error message

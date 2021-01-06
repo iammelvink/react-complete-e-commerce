@@ -3,7 +3,8 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getUserDetails } from '../actions/userActions'
+import { getUserDetails, updateUserProfile } from '../actions/userActions'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 const ProfileScreen = ({ history }) => {
 	const [name, setName] = useState('')
@@ -22,13 +23,18 @@ const ProfileScreen = ({ history }) => {
 	const userLogin = useSelector((state) => state.userLogin)
 	const { userInfo } = userLogin
 
+	// Get success value from userUpdateProfileReducer
+	const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
+	const { success } = userUpdateProfile
+
 	// make request here upon component load
 	useEffect(
 		() => {
 			if (!userInfo) {
 				history.push('/login')
 			} else {
-				if (!user.name) {
+				if (!user || !user.name || success) {
+					dispatch({ type: USER_UPDATE_PROFILE_RESET })
 					dispatch(getUserDetails('profile'))
 				} else {
 					setName(user.name)
@@ -36,7 +42,7 @@ const ProfileScreen = ({ history }) => {
 				}
 			}
 		},
-		[dispatch, history, userInfo, user] // Dependencies, on change they fire off useEffect
+		[dispatch, history, userInfo, user, success] // Dependencies, on change they fire off useEffect
 	)
 
 	const submitHandler = (e) => {
@@ -45,7 +51,7 @@ const ProfileScreen = ({ history }) => {
 		if (password !== confirmPassword) {
 			setMessage('Passwords do not match')
 		} else {
-			// Dispatch update profile
+			dispatch(updateUserProfile({ id: user._id, name, email, password }))
 		}
 	}
 
@@ -53,11 +59,11 @@ const ProfileScreen = ({ history }) => {
 		<Row>
 			<Col md={3}>
 				<h2>User Profile</h2>
-				{/* 
-            On error, display message/error
+				{/* On error, display message/error
             When loading, display Loading... */}
 				{message && <Message variant='danger'>{message}</Message>}
 				{error && <Message variant='danger'>{error}</Message>}
+				{success && <Message variant='success'>Profile Updated</Message>}
 				{loading && <Loader />}
 				<Form onSubmit={submitHandler}>
 					{/* Name */}
