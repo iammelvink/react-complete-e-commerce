@@ -125,6 +125,14 @@ const ProductScreen = ({ history, match }) => {
 											className='btn-block'
 											type='button'
 										>
+											<i className='fas fa-plus'></i>
+											<span
+												style={{
+													margin: '0.4rem',
+												}}
+											>
+												<i className='fas fa-shopping-cart'></i>
+											</span>
 											Add To Cart
 										</Button>
 									) : (
