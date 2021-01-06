@@ -6,9 +6,12 @@ import {
 	USER_REGISTER_REQUEST,
 	USER_REGISTER_SUCCESS,
 	USER_REGISTER_FAIL,
+	USER_DETAILS_REQUEST,
+	USER_DETAILS_SUCCESS,
+	USER_DETAILS_FAIL,
 } from '../constants/userConstants'
 
-// userLoginReducer for all users
+// userLoginReducer for users
 export const userLoginReducer = (state = {}, action) => {
 	switch (action.type) {
 		// loading will NOT be done yet, so true
@@ -36,8 +39,7 @@ export const userLoginReducer = (state = {}, action) => {
 			return state
 	}
 }
-
-// userRegisterReducer for all users
+// userRegisterReducer for users
 export const userRegisterReducer = (state = {}, action) => {
 	switch (action.type) {
 		// loading will NOT be done yet, so true
@@ -54,6 +56,30 @@ export const userRegisterReducer = (state = {}, action) => {
 		// the error will contain the payload
 		// loading will be done, so false
 		case USER_REGISTER_FAIL:
+			return { loading: false, error: action.payload }
+
+		// In any other case, just return the state
+		default:
+			return state
+	}
+}
+// userDetailsReducer for users
+export const userDetailsReducer = (state = { user: {} }, action) => {
+	switch (action.type) {
+		// loading will NOT be done yet, so true
+		case USER_DETAILS_REQUEST:
+			return { ...state, loading: true }
+
+		// On success
+		// user will contain data as a payload
+		// loading will be done, so false
+		case USER_DETAILS_SUCCESS:
+			return { loading: false, user: action.payload }
+
+		// On fail
+		// the error will contain the payload
+		// loading will be done, so false
+		case USER_DETAILS_FAIL:
 			return { loading: false, error: action.payload }
 
 		// In any other case, just return the state
