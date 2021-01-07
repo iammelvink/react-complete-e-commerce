@@ -49,7 +49,7 @@ const OrderScreen = ({ match }) => {
 			document.body.appendChild(script)
 		}
 
-		if (!order || successPay) {
+		if (!order || successPay || order._id !== orderId) {
 			dispatch({ type: ORDER_PAY_RESET })
 			dispatch(getOrderDetails(orderId))
 			// if not paid add paypal script

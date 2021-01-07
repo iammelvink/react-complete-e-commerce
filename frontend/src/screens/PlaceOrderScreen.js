@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { createOrder } from '../actions/orderActions'
+import { USER_DETAILS_RESET } from '../constants/userConstants'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 
 const PlaceOrderScreen = ({ history }) => {
 	const dispatch = useDispatch()
@@ -40,6 +42,8 @@ const PlaceOrderScreen = ({ history }) => {
 	useEffect(() => {
 		if (success) {
 			history.push(`/order/${order._id}`)
+			dispatch({ type: USER_DETAILS_RESET })
+			dispatch({ type: ORDER_CREATE_RESET })
 		}
 		// eslint-disable-next-line
 	}, [history, success]) // Dependencies, on change they fire off useEffect
