@@ -14,6 +14,9 @@ import {
 	USER_UPDATE_PROFILE_SUCCESS,
 	USER_UPDATE_PROFILE_FAIL,
 	USER_UPDATE_PROFILE_RESET,
+	USER_LIST_REQUEST,
+	USER_LIST_SUCCESS,
+	USER_LIST_FAIL,
 } from '../constants/userConstants'
 
 // userLoginReducer for users
@@ -116,6 +119,30 @@ export const userUpdateProfileReducer = (state = {}, action) => {
 		// Then reset
 		case USER_UPDATE_PROFILE_RESET:
 			return {}
+
+		// In any other case, just return the state
+		default:
+			return state
+	}
+}
+// userListReducer for admin users
+export const userListReducer = (state = { users: [] }, action) => {
+	switch (action.type) {
+		// loading will NOT be done yet, so true
+		case USER_LIST_REQUEST:
+			return { loading: true }
+
+		// On success
+		// users will contain data as a payload
+		// loading will be done, so false
+		case USER_LIST_SUCCESS:
+			return { loading: false, users: action.payload }
+
+		// On fail
+		// the error will contain the payload
+		// loading will be done, so false
+		case USER_LIST_FAIL:
+			return { loading: false, error: action.payload }
 
 		// In any other case, just return the state
 		default:
