@@ -73,6 +73,9 @@ const OrderScreen = ({ match }) => {
 		<Message variant='danger'>{error}</Message>
 	) : (
 		<>
+			<Link to='/profile' className='btn btn-light my-3'>
+				Go Back
+			</Link>
 			<h1>Order {order._id}</h1>
 			<Row>
 				{/* Left Steps Summary */}
