@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { getUserDetails } from '../actions/userActions'
+import { getUserDetails, updateUser } from '../actions/userActions'
+import { USER_UPDATE_RESET } from '../constants/userConstants'
 
 const UserScreen = ({ match, history }) => {
 	const userId = match.params.id
@@ -20,19 +21,32 @@ const UserScreen = ({ match, history }) => {
 	const userDetails = useSelector((state) => state.userDetails)
 	const { loading, error, user } = userDetails
 
+	const userUpdate = useSelector((state) => state.userUpdate)
+	const {
+		loading: loadingUpdate,
+		error: errorUpdate,
+		success: successUpdate,
+	} = userUpdate
+
 	// make request here upon component load
 	useEffect(() => {
-		if (!user.name || user._id !== userId) {
-			dispatch(getUserDetails(userId))
+		if (successUpdate) {
+			dispatch({ type: USER_UPDATE_RESET })
+			history.push('/admin/userlist')
 		} else {
-			setName(user.name)
-			setEmail(user.email)
-			setIsAdmin(user.isAdmin)
+			if (!user.name || user._id !== userId) {
+				dispatch(getUserDetails(userId))
+			} else {
+				setName(user.name)
+				setEmail(user.email)
+				setIsAdmin(user.isAdmin)
+			}
 		}
-	}, [dispatch, user, userId]) // Dependencies, on change they fire off useEffect)
+	}, [successUpdate, dispatch, history, user, userId]) // Dependencies, on change they fire off useEffect)
 
 	const submitHandler = (e) => {
 		e.preventDefault()
+		dispatch(updateUser({ _id: userId, name, email, isAdmin }))
 	}
 
 	return (
@@ -42,6 +56,8 @@ const UserScreen = ({ match, history }) => {
 			</Link>
 			<FormContainer>
 				<h1>Edit User</h1>
+				{loadingUpdate && <Loader />}
+				{errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
 				{/* On error, display message/error
             When loading, display Loading... */}
 				{loading ? (

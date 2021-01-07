@@ -21,6 +21,10 @@ import {
 	USER_DELETE_REQUEST,
 	USER_DELETE_SUCCESS,
 	USER_DELETE_FAIL,
+	USER_UPDATE_REQUEST,
+	USER_UPDATE_SUCCESS,
+	USER_UPDATE_FAIL,
+	USER_UPDATE_RESET,
 } from '../constants/userConstants'
 
 // userLoginReducer for users
@@ -173,6 +177,33 @@ export const userDeleteReducer = (state = {}, action) => {
 		// loading will be done, so false
 		case USER_DELETE_FAIL:
 			return { loading: false, error: action.payload }
+
+		// In any other case, just return the state
+		default:
+			return state
+	}
+}
+// userUpdateReducer for admin users
+export const userUpdateReducer = (state = { user: {} }, action) => {
+	switch (action.type) {
+		// loading will NOT be done yet, so true
+		case USER_UPDATE_REQUEST:
+			return { loading: true }
+
+		// On success
+		// users will contain data as a payload
+		// loading will be done, so false
+		case USER_UPDATE_SUCCESS:
+			return { loading: false, success: true }
+
+		// On fail
+		// the error will contain the payload
+		// loading will be done, so false
+		case USER_UPDATE_FAIL:
+			return { loading: false, error: action.payload }
+
+		case USER_UPDATE_RESET:
+			return { user: {} }
 
 		// In any other case, just return the state
 		default:
