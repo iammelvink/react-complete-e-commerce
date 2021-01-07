@@ -17,6 +17,7 @@ import {
 	USER_LIST_REQUEST,
 	USER_LIST_SUCCESS,
 	USER_LIST_FAIL,
+	USER_LIST_RESET,
 } from '../constants/userConstants'
 
 // userLoginReducer for users
@@ -143,6 +144,8 @@ export const userListReducer = (state = { users: [] }, action) => {
 		// loading will be done, so false
 		case USER_LIST_FAIL:
 			return { loading: false, error: action.payload }
+		case USER_LIST_RESET:
+			return { users: [] }
 
 		// In any other case, just return the state
 		default:
