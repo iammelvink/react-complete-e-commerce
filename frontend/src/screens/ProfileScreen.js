@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Table, Form, Button, Row, Col } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
+import { listMyOrders } from '../actions/orderActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 const ProfileScreen = ({ history }) => {
@@ -27,6 +29,10 @@ const ProfileScreen = ({ history }) => {
 	const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
 	const { success } = userUpdateProfile
 
+	// To get my list of orders
+	const orderListMy = useSelector((state) => state.orderListMy)
+	const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
+
 	// make request here upon component load
 	useEffect(
 		() => {
@@ -36,6 +42,7 @@ const ProfileScreen = ({ history }) => {
 				if (!user || !user.name || success) {
 					dispatch({ type: USER_UPDATE_PROFILE_RESET })
 					dispatch(getUserDetails('profile'))
+					dispatch(listMyOrders())
 				} else {
 					setName(user.name)
 					setEmail(user.email)
@@ -65,7 +72,7 @@ const ProfileScreen = ({ history }) => {
 				{error && <Message variant='danger'>{error}</Message>}
 				{success && <Message variant='success'>Profile Updated</Message>}
 				{loading && <Loader />}
-				<Form onSubmit={submitHandler}>
+				<Form onSubmit={submitHandler} className='pushToRight'>
 					{/* Name */}
 					<Form.Group controlId='email'>
 						<Form.Label>Name</Form.Label>
@@ -114,6 +121,54 @@ const ProfileScreen = ({ history }) => {
 			</Col>
 			<Col md={9}>
 				<h2>My orders</h2>
+				{loadingOrders ? (
+					<Loader />
+				) : errorOrders ? (
+					<Message variant='danger'>{errorOrders}</Message>
+				) : (
+					<Table stripped bordered hover responsive className='table-sm'>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Date</th>
+								<th>Total</th>
+								<th>Paid</th>
+								<th>Delivered</th>
+								<th>Info</th>
+							</tr>
+						</thead>
+						<tbody>
+							{orders.map((order) => (
+								<tr key={order._id}>
+									<td>{order._id}</td>
+									<td>{order.createdAt.substring(0, 10)}</td>
+									<td>R{order.totalPrice}</td>
+									<td>
+										{order.isPaid ? (
+											order.paidAt.substring(0, 10)
+										) : (
+											<i className='fas fa-times' style={{ color: 'red' }}></i>
+										)}
+									</td>
+									<td>
+										{order.isDeliverd ? (
+											order.deliveredAt.substring(0, 10)
+										) : (
+											<i className='fas fa-times' style={{ color: 'red' }}></i>
+										)}
+									</td>
+									<td>
+										<LinkContainer to={`/order/${order._id}`}>
+											<Button className='btn-sm' variant='light'>
+												Details
+											</Button>
+										</LinkContainer>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</Table>
+				)}
 			</Col>
 		</Row>
 	)
