@@ -13,6 +13,9 @@ import {
 	ORDER_LIST_MY_REQUEST,
 	ORDER_LIST_MY_SUCCESS,
 	ORDER_LIST_MY_FAIL,
+	ORDER_LIST_REQUEST,
+	ORDER_LIST_SUCCESS,
+	ORDER_LIST_FAIL,
 	ORDER_DELIVER_REQUEST,
 	ORDER_DELIVER_SUCCESS,
 	ORDER_DELIVER_FAIL,
@@ -163,6 +166,41 @@ export const listMyOrders = () => async (dispatch, getState) => {
 	} catch (error) {
 		dispatch({
 			type: ORDER_LIST_MY_FAIL,
+			payload:
+				// Send a custom error message
+				// Else send a generic error message
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		})
+	}
+}
+// Actions to list all orders
+export const listOrders = () => async (dispatch, getState) => {
+	try {
+		dispatch({ type: ORDER_LIST_REQUEST })
+
+		// Get userInfo from userLogin by destructuring
+		const {
+			userLogin: { userInfo },
+		} = getState()
+
+		const config = {
+			headers: {
+				Authorization: `Bearer ${userInfo.token}`,
+			},
+		}
+
+		// Make get request to get all orders
+		const { data } = await axios.get('/api/orders', config)
+
+		dispatch({
+			type: ORDER_LIST_SUCCESS,
+			payload: data,
+		})
+	} catch (error) {
+		dispatch({
+			type: ORDER_LIST_FAIL,
 			payload:
 				// Send a custom error message
 				// Else send a generic error message
