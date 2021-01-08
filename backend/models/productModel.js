@@ -7,6 +7,11 @@ const reviewSchema = mongoose.Schema(
 		// Individual rating
 		rating: { type: Number, required: true },
 		comment: { type: String, required: true },
+		user: {
+			type: mongoose.Schema.Types.ObjectId, // Gets id of User
+			required: true,
+			ref: 'User', // Adds relationship between Review and User
+		},
 	},
 	{
 		timestamps: true,

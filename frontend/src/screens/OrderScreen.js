@@ -91,6 +91,7 @@ const OrderScreen = ({ match }) => {
 	) : (
 		<>
 			<Link
+				// TODO if admin has an order go back to /profile
 				to={userInfo.isAdmin ? '/admin/orderlist' : '/profile'}
 				className='btn btn-light my-3'
 			>
