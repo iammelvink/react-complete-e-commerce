@@ -167,7 +167,6 @@ export const userDeleteReducer = (state = {}, action) => {
 			return { loading: true }
 
 		// On success
-		// users will contain data as a payload
 		// loading will be done, so false
 		case USER_DELETE_SUCCESS:
 			return { loading: false, success: true }
@@ -191,7 +190,6 @@ export const userUpdateReducer = (state = { user: {} }, action) => {
 			return { loading: true }
 
 		// On success
-		// users will contain data as a payload
 		// loading will be done, so false
 		case USER_UPDATE_SUCCESS:
 			return { loading: false, success: true }

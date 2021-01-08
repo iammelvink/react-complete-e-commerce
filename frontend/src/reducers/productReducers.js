@@ -5,6 +5,9 @@ import {
 	PRODUCT_DETAILS_REQUEST,
 	PRODUCT_DETAILS_SUCCESS,
 	PRODUCT_DETAILS_FAIL,
+	PRODUCT_DELETE_REQUEST,
+	PRODUCT_DELETE_SUCCESS,
+	PRODUCT_DELETE_FAIL,
 } from '../constants/productConstants'
 
 // productListReducer for all products
@@ -58,6 +61,29 @@ export const productDetailsReducer = (
 		// product will contain the error as a payload
 		// loading will be done, so false
 		case PRODUCT_DETAILS_FAIL:
+			return { loading: false, error: action.payload }
+
+		// In any other case, just return the state
+		default:
+			return state
+	}
+}
+// productDeleteReducer for admin users
+export const productDeleteReducer = (state = {}, action) => {
+	switch (action.type) {
+		// loading will NOT be done yet, so true
+		case PRODUCT_DELETE_REQUEST:
+			return { loading: true }
+
+		// On success
+		// loading will be done, so false
+		case PRODUCT_DELETE_SUCCESS:
+			return { loading: false, success: true }
+
+		// On fail
+		// the error will contain the payload
+		// loading will be done, so false
+		case PRODUCT_DELETE_FAIL:
 			return { loading: false, error: action.payload }
 
 		// In any other case, just return the state
