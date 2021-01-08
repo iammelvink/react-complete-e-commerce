@@ -126,11 +126,7 @@ const ProductScreen = ({ history, match }) => {
 											type='button'
 										>
 											<i className='fas fa-plus'></i>
-											<span
-												style={{
-													margin: '0.4rem',
-												}}
-											>
+											<span className='plusSignMargin'>
 												<i className='fas fa-shopping-cart'></i>
 											</span>
 											Add To Cart

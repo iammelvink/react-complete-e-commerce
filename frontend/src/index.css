@@ -21,6 +21,9 @@ h3 {
 a {
 	color: #000;
 }
+.plusSignMargin {
+	margin: 0.4rem;
+}
 .pushToRight {
 	margin-left: 0.6rem;
 }
