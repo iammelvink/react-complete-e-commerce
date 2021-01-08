@@ -15,6 +15,9 @@ import {
 	PRODUCT_UPDATE_REQUEST,
 	PRODUCT_UPDATE_SUCCESS,
 	PRODUCT_UPDATE_FAIL,
+	PRODUCT_CREATE_REVIEW_REQUEST,
+	PRODUCT_CREATE_REVIEW_SUCCESS,
+	PRODUCT_CREATE_REVIEW_FAIL,
 } from '../constants/productConstants'
 
 // Actions to get all products
@@ -145,7 +148,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
 			},
 		}
 
-		// Make post request to update a product
+		// Make put request to update a product
 		const { data } = await axios.put(
 			`/api/products/${product._id}`,
 			product,
@@ -156,6 +159,42 @@ export const updateProduct = (product) => async (dispatch, getState) => {
 	} catch (error) {
 		dispatch({
 			type: PRODUCT_UPDATE_FAIL,
+			payload:
+				// Send a custom error message
+				// Else send a generic error message
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		})
+	}
+}
+// Actions to create a review on a single product
+export const createProductReview = (productId, review) => async (
+	dispatch,
+	getState
+) => {
+	try {
+		dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST })
+
+		// Get userInfo from userLogin by destructuring
+		const {
+			userLogin: { userInfo },
+		} = getState()
+
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${userInfo.token}`,
+			},
+		}
+
+		// Make post request to create a review on a product
+		await axios.post(`/api/products/${productId}/reviews`, review, config)
+
+		dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS })
+	} catch (error) {
+		dispatch({
+			type: PRODUCT_CREATE_REVIEW_FAIL,
 			payload:
 				// Send a custom error message
 				// Else send a generic error message
