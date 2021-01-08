@@ -12,6 +12,10 @@ import {
 	PRODUCT_CREATE_SUCCESS,
 	PRODUCT_CREATE_FAIL,
 	PRODUCT_CREATE_RESET,
+	PRODUCT_UPDATE_REQUEST,
+	PRODUCT_UPDATE_SUCCESS,
+	PRODUCT_UPDATE_FAIL,
+	PRODUCT_UPDATE_RESET,
 } from '../constants/productConstants'
 
 // productListReducer for all products
@@ -115,6 +119,32 @@ export const productCreateReducer = (state = {}, action) => {
 
 		case PRODUCT_CREATE_RESET:
 			return {}
+
+		// In any other case, just return the state
+		default:
+			return state
+	}
+}
+// productUpdateReducer for admin users
+export const productUpdateReducer = (state = { product: {} }, action) => {
+	switch (action.type) {
+		// loading will NOT be done yet, so true
+		case PRODUCT_UPDATE_REQUEST:
+			return { loading: true }
+
+		// On success
+		// loading will be done, so false
+		case PRODUCT_UPDATE_SUCCESS:
+			return { loading: false, success: true, product: action.payload }
+
+		// On fail
+		// the error will contain the payload
+		// loading will be done, so false
+		case PRODUCT_UPDATE_FAIL:
+			return { loading: false, error: action.payload }
+
+		case PRODUCT_UPDATE_RESET:
+			return { product: {} }
 
 		// In any other case, just return the state
 		default:
