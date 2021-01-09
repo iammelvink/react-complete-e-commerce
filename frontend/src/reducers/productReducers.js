@@ -35,7 +35,12 @@ export const productListReducer = (state = { products: [] }, action) => {
 		// products will contain data as a payload
 		// loading will be done, so false
 		case PRODUCT_LIST_SUCCESS:
-			return { loading: false, products: action.payload }
+			return {
+				loading: false,
+				products: action.payload.products,
+				pages: action.payload.pages,
+				page: action.payload.page,
+			}
 
 		// On fail
 		// products will contain the error as a payload
