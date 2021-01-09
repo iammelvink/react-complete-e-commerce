@@ -106,20 +106,20 @@ const OrderScreen = ({ match }) => {
 							<h2>Shipping</h2>
 
 							<p>
-								<span className='pushToRight'>
+								<span className='push-to-right'>
 									<strong>Name: </strong> {order.user.name}
 								</span>
 							</p>
 
 							<p>
-								<span className='pushToRight'>
+								<span className='push-to-right'>
 									<strong>Email: </strong>
 									<a href={`mailto:${order.user.email}`}>{order.user.email}</a>
 								</span>
 							</p>
 
 							<p>
-								<span className='pushToRight'>
+								<span className='push-to-right'>
 									<strong>Address: </strong>
 									{order.shippingAddress.address}, {order.shippingAddress.city}{' '}
 									{order.shippingAddress.postalCode},{' '}
@@ -137,7 +137,7 @@ const OrderScreen = ({ match }) => {
 						<ListGroup.Item>
 							<h2>Payment Method</h2>
 							<p>
-								<span className='pushToRight'>
+								<span className='push-to-right'>
 									<strong>Method: </strong>
 									{order.paymentMethod}
 								</span>
@@ -188,25 +188,25 @@ const OrderScreen = ({ match }) => {
 							<ListGroup.Item>
 								<h2>Order Summary</h2>
 							</ListGroup.Item>
-							<ListGroup.Item className='pushToRight'>
+							<ListGroup.Item className='push-to-right'>
 								<Row>
 									<Col>Items</Col>
 									<Col>R{order.itemsPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item className='pushToRight'>
+							<ListGroup.Item className='push-to-right'>
 								<Row>
 									<Col>Shipping</Col>
 									<Col>R{order.shippingPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item className='pushToRight'>
+							<ListGroup.Item className='push-to-right'>
 								<Row>
 									<Col>Tax</Col>
 									<Col>R{order.taxPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item className='pushToRight'>
+							<ListGroup.Item className='push-to-right'>
 								<Row>
 									<Col>
 										<strong>Total</strong>

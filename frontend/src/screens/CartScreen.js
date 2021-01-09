@@ -100,7 +100,7 @@ const CartScreen = ({ match, location, history }) => {
 								Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
 								items
 							</h2>
-							<span className='pushToRight'>
+							<span className='push-to-right'>
 								R
 								{addDecimals(
 									cartItems

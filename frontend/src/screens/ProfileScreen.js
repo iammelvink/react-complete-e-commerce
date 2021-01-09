@@ -72,7 +72,7 @@ const ProfileScreen = ({ history }) => {
 				{error && <Message variant='danger'>{error}</Message>}
 				{success && <Message variant='success'>Profile Updated</Message>}
 				{loading && <Loader />}
-				<Form onSubmit={submitHandler} className='pushToRight'>
+				<Form onSubmit={submitHandler} className='push-to-right'>
 					{/* Name */}
 					<Form.Group controlId='email'>
 						<Form.Label>Name</Form.Label>

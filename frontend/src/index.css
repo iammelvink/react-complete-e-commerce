@@ -21,11 +21,16 @@ h3 {
 a {
 	color: #000;
 }
-.plusSignMargin {
+.plus-sign-margin {
 	margin: 0.4rem;
 }
-.pushToRight {
+.push-to-right {
 	margin-left: 0.6rem;
+}
+
+.melvin-kisten {
+	color: #000;
+	margin-right: 0.4rem;
 }
 
 /* carousel */

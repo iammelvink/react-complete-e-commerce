@@ -170,7 +170,7 @@ const ProductScreen = ({ history, match }) => {
 												type='button'
 											>
 												<i className='fas fa-plus'></i>
-												<span className='plusSignMargin'>
+												<span className='plus-sign-margin'>
 													<i className='fas fa-shopping-cart'></i>
 												</span>
 												Add To Cart
@@ -216,7 +216,7 @@ const ProductScreen = ({ history, match }) => {
 										<Message variant='danger'>{errorProductReview}</Message>
 									)}
 									{userInfo ? (
-										<Form className='pushToRight' onSubmit={submitHandler}>
+										<Form className='push-to-right' onSubmit={submitHandler}>
 											<Form.Group controlId='rating'>
 												<Form.Label>Rating</Form.Label>
 												<Form.Control

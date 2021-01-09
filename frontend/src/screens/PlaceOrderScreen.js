@@ -72,7 +72,7 @@ const PlaceOrderScreen = ({ history }) => {
 						<ListGroup.Item>
 							<h2>Shipping</h2>
 							<p>
-								<span className='pushToRight'>
+								<span className='push-to-right'>
 									<strong>Address: </strong>
 									{cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
 									{cart.shippingAddress.postalCode},{' '}
@@ -82,7 +82,7 @@ const PlaceOrderScreen = ({ history }) => {
 						</ListGroup.Item>
 						<ListGroup.Item>
 							<h2>Payment Method</h2>
-							<span className='pushToRight'>
+							<span className='push-to-right'>
 								<strong>Method: </strong>
 								{cart.paymentMethod}
 							</span>
@@ -127,25 +127,25 @@ const PlaceOrderScreen = ({ history }) => {
 							<ListGroup.Item>
 								<h2>Order Summary</h2>
 							</ListGroup.Item>
-							<ListGroup.Item className='pushToRight'>
+							<ListGroup.Item className='push-to-right'>
 								<Row>
 									<Col>Items</Col>
 									<Col>R{cart.itemsPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item className='pushToRight'>
+							<ListGroup.Item className='push-to-right'>
 								<Row>
 									<Col>Shipping</Col>
 									<Col>R{cart.shippingPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item className='pushToRight'>
+							<ListGroup.Item className='push-to-right'>
 								<Row>
 									<Col>Tax</Col>
 									<Col>R{cart.taxPrice}</Col>
 								</Row>
 							</ListGroup.Item>
-							<ListGroup.Item className='pushToRight'>
+							<ListGroup.Item className='push-to-right'>
 								<Row>
 									<Col>
 										<strong>Total</strong>
