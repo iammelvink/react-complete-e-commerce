@@ -6,7 +6,9 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProducts } from '../actions/productActions'
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
+	const keyword = match.params.keyword
+
 	const dispatch = useDispatch()
 
 	// useSelector is to grab what we want from the state
@@ -17,9 +19,9 @@ const HomeScreen = () => {
 	useEffect(
 		() => {
 			// Fire off action to get the products
-			dispatch(listProducts())
+			dispatch(listProducts(keyword))
 		},
-		[dispatch] // Dependencies, on change they fire off useEffect
+		[dispatch, keyword] // Dependencies, on change they fire off useEffect
 	)
 	return (
 		<>
