@@ -18,6 +18,9 @@ import {
 	PRODUCT_CREATE_REVIEW_REQUEST,
 	PRODUCT_CREATE_REVIEW_SUCCESS,
 	PRODUCT_CREATE_REVIEW_FAIL,
+	PRODUCT_TOP_REQUEST,
+	PRODUCT_TOP_SUCCESS,
+	PRODUCT_TOP_FAIL,
 } from '../constants/productConstants'
 
 // Actions to get all products
@@ -199,6 +202,29 @@ export const createProductReview = (productId, review) => async (
 	} catch (error) {
 		dispatch({
 			type: PRODUCT_CREATE_REVIEW_FAIL,
+			payload:
+				// Send a custom error message
+				// Else send a generic error message
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		})
+	}
+}
+// Actions to get 3 top rated products
+export const listTopProducts = () => async (dispatch) => {
+	try {
+		dispatch({ type: PRODUCT_TOP_REQUEST })
+		// Make request to get 3 top rated products
+		const { data } = await axios.get('/api/products/top')
+
+		dispatch({
+			type: PRODUCT_TOP_SUCCESS,
+			payload: data,
+		})
+	} catch (error) {
+		dispatch({
+			type: PRODUCT_TOP_FAIL,
 			payload:
 				// Send a custom error message
 				// Else send a generic error message
