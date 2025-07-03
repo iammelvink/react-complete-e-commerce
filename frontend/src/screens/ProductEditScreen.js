@@ -57,10 +57,15 @@ const ProductScreen = ({ match, history }) => {
 
 	const uploadFileHandler = async (e) => {
 		const file = e.target.files[0]
+		
+		if (!file) {
+			return
+		}
 
 		const formData = new FormData()
 		formData.append('image', file)
 		setUploading(true)
+		
 		try {
 			const config = {
 				headers: {
@@ -74,7 +79,18 @@ const ProductScreen = ({ match, history }) => {
 			setImage(data)
 			setUploading(false)
 		} catch (error) {
-			console.error(error)
+			console.error('Upload error:', error)
+			let errorMessage = 'Please try again'
+			
+			if (error.response?.data?.message) {
+				errorMessage = error.response.data.message
+			} else if (error.message) {
+				errorMessage = error.message
+			} else if (typeof error === 'string') {
+				errorMessage = error
+			}
+			
+			alert('Error uploading image: ' + errorMessage)
 			setUploading(false)
 		}
 	}
@@ -113,7 +129,7 @@ const ProductScreen = ({ match, history }) => {
 				) : (
 					<Form onSubmit={submitHandler}>
 						{/* Name */}
-						<Form.Group controlId='email'>
+						<Form.Group controlId='name'>
 							<Form.Label>Name</Form.Label>
 							<Form.Control
 								type='text'
@@ -144,13 +160,17 @@ const ProductScreen = ({ match, history }) => {
 								onChange={(e) => setImage(e.target.value)}
 							></Form.Control>
 							{/* Image file */}
-							<Form.File
-								id='image-file'
-								label='Choose File'
-								custom
-								onChange={uploadFileHandler}
-							></Form.File>
-							{uploading && <Loader />}
+							<Form.Group>
+								<Form.Label>Upload Image</Form.Label>
+								<Form.Control
+									type='file'
+									id='image-file'
+									label='Choose File'
+									accept='image/*'
+									onChange={uploadFileHandler}
+								/>
+								{uploading && <Loader />}
+							</Form.Group>
 						</Form.Group>
 						{/* Brand */}
 						<Form.Group controlId='brand'>

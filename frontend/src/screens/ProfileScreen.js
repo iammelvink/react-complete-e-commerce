@@ -74,7 +74,7 @@ const ProfileScreen = ({ history }) => {
 				{loading && <Loader />}
 				<Form onSubmit={submitHandler} className='push-to-right'>
 					{/* Name */}
-					<Form.Group controlId='email'>
+					<Form.Group controlId='name'>
 						<Form.Label>Name</Form.Label>
 						<Form.Control
 							type='name'
@@ -151,7 +151,7 @@ const ProfileScreen = ({ history }) => {
 										)}
 									</td>
 									<td>
-										{order.isDeliverd ? (
+										{order.isDelivered ? (
 											order.deliveredAt.substring(0, 10)
 										) : (
 											<i className='fas fa-times' style={{ color: 'red' }}></i>

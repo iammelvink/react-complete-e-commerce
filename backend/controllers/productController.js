@@ -8,8 +8,7 @@ const getProducts = asyncHandler(async (req, res) => {
 	const pageSize = 10
 	const page = Number(req.query.pageNumber) || 1
 	const keyword = req.query.keyword
-		? // TODO Fuzzy Search
-		  {
+		? {
 				name: {
 					$regex: req.query.keyword,
 					$options: 'i', // case insensitive

@@ -11,7 +11,8 @@ import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 
-dotenv.config()
+// Configure dotenv
+dotenv.config({ path: path.join(path.resolve(), '.env') })
 
 // Invoke connectDB
 connectDB()

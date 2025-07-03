@@ -254,6 +254,82 @@ Find out how to build a complete e-commerce platform. Author Melvin Kisten tackl
    > heroku ps:scale web=1
    ```
 
+## Quick Start Guide
+
+### 🚀 Easy Setup (Windows)
+
+1. **First Time Setup:**
+   ```bash
+   # Run the setup script
+   setup.bat
+   ```
+
+2. **Start Application:**
+   ```bash
+   # Start both servers
+   start-app.bat
+   ```
+
+3. **Access Application:**
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:8000
+   - Admin Login: melvin@eg.com / 12345
+
+### 📋 Manual Setup
+
+1. **Install Dependencies:**
+   ```bash
+   npm run setup
+   ```
+
+2. **Configure Environment:**
+   - Copy `.env-example` to `.env`
+   - Update MongoDB connection if needed
+
+3. **Import Sample Data:**
+   ```bash
+   npm run data:import
+   ```
+
+4. **Start Development Servers:**
+   ```bash
+   npm run dev
+   ```
+
+### 🛠️ Available Scripts
+
+- `npm run setup` - Install all dependencies
+- `npm run dev` - Start both frontend and backend
+- `npm run server` - Start backend only
+- `npm run client` - Start frontend only
+- `npm run data:import` - Import sample data
+- `npm run data:destroy` - Remove all data
+- `npm run data:refresh` - Destroy and reimport data
+
+### 🔧 Troubleshooting
+
+**Common Issues:**
+
+1. **Port 3000/8000 already in use:**
+   ```bash
+   taskkill /F /IM node.exe
+   ```
+
+2. **MongoDB connection error:**
+   - Ensure MongoDB is running on localhost:27017
+   - Check MONGO_URI in .env file
+
+3. **Frontend proxy errors:**
+   - Make sure backend is running first
+   - Check if .env file exists in root directory
+
+4. **Dependencies missing:**
+   ```bash
+   npm run setup
+   ```
+
+---
+
 ## More Stuff
 
 Check out some other stuff on [Melvin K](https://github.com/iammelvink "Melvin K GitHub page").
