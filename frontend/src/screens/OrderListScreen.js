@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
+import { FaCheckCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -40,7 +41,7 @@ const OrderListScreen = ({ history }) => {
 							<th>Total</th>
 							<th>Paid</th>
 							<th>Delivered</th>
-							<th>Info</th>
+							{/* <th>Info</th> removed */}
 						</tr>
 					</thead>
 					<tbody>
@@ -50,27 +51,31 @@ const OrderListScreen = ({ history }) => {
 								<td>{order.user && order.user.name}</td>
 								<td>{order.createdAt.substring(0, 10)}</td>
 								<td>R{order.totalPrice}</td>
-								<td>
-									{order.isPaid ? (
-										order.paidAt.substring(0, 10)
-									) : (
-										<i className='fas fa-times' style={{ color: 'red' }}></i>
-									)}
-								</td>
-								<td>
-									{order.isDelivered ? (
-										order.deliveredAt.substring(0, 10)
-									) : (
-										<i className='fas fa-times' style={{ color: 'red' }}></i>
-									)}
-								</td>
-								<td>
-									<LinkContainer to={`/order/${order._id}`}>
-										<Button className='btn-sm' variant='light'>
-											Details
-										</Button>
-									</LinkContainer>
-								</td>
+<td>
+  {/* Debug: Log order object and order._id for troubleshooting */}
+  {console.log('Order row:', order)}
+  {order.isPaid ? (
+	<span style={{ color: 'green', fontWeight: 600 }}>
+	  <FaCheckCircle style={{ marginRight: 4 }} /> Paid
+	</span>
+  ) : (
+	<span style={{ color: 'red', fontWeight: 600 }}>
+	  <i className='fas fa-times' style={{ marginRight: 4 }}></i> Not Paid
+	</span>
+  )}
+</td>
+<td>
+  {order.isDelivered ? (
+	<span style={{ color: 'green', fontWeight: 600 }}>
+	  <FaCheckCircle style={{ marginRight: 4 }} /> Delivered
+	</span>
+  ) : (
+	<span style={{ color: 'red', fontWeight: 600 }}>
+	  <i className='fas fa-times' style={{ marginRight: 4 }}></i> Not Delivered
+	</span>
+  )}
+</td>
+								{/* Details button removed */}
 							</tr>
 						))}
 					</tbody>

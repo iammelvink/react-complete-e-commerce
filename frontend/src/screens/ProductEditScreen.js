@@ -34,6 +34,9 @@ const ProductScreen = ({ match, history }) => {
 		success: successUpdate,
 	} = productUpdate
 
+	const userLogin = useSelector((state) => state.userLogin)
+	const { userInfo } = userLogin
+
 	// make request here upon component load
 	useEffect(() => {
 		if (successUpdate) {
@@ -70,6 +73,7 @@ const ProductScreen = ({ match, history }) => {
 			const config = {
 				headers: {
 					'Content-Type': 'multipart/form-data',
+					Authorization: `Bearer ${userInfo.token}`,
 				},
 			}
 

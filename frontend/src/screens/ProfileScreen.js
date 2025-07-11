@@ -67,7 +67,7 @@ const ProfileScreen = ({ history }) => {
 			<Col md={3}>
 				<h2>User Profile</h2>
 				{/* On error, display message/error
-            When loading, display Loading... */}
+			When loading, display Loading... */}
 				{message && <Message variant='danger'>{message}</Message>}
 				{error && <Message variant='danger'>{error}</Message>}
 				{success && <Message variant='success'>Profile Updated</Message>}
@@ -128,13 +128,13 @@ const ProfileScreen = ({ history }) => {
 				) : (
 					<Table bordered hover responsive className='table-sm'>
 						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Date</th>
-								<th>Total</th>
-								<th>Paid</th>
-								<th>Delivered</th>
-								<th>Info</th>
+						<tr>
+							<th>ID</th>
+							<th>Date</th>
+							<th>Total</th>
+							<th>Paid</th>
+							<th>Delivered</th>
+							{/* <th>Info</th> removed */}
 							</tr>
 						</thead>
 						<tbody>
@@ -157,13 +157,7 @@ const ProfileScreen = ({ history }) => {
 											<i className='fas fa-times' style={{ color: 'red' }}></i>
 										)}
 									</td>
-									<td>
-										<LinkContainer to={`/order/${order._id}`}>
-											<Button className='btn-sm' variant='light'>
-												Details
-											</Button>
-										</LinkContainer>
-									</td>
+								{/* Details button removed */}
 								</tr>
 							))}
 						</tbody>

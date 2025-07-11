@@ -60,14 +60,22 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 	const order = await Order.findById(req.params.id)
 
 	if (order) {
-		order.isPaid = true
-		order.paidAt = Date.now()
-		order.paymentResult = {
-			id: req.body.id,
-			status: req.body.status,
-			update_time: req.body.update_time,
-			email_address: req.body.payer.email_address,
-		}
+
+	   order.isPaid = true
+	   order.paidAt = Date.now()
+	   // If QR/UPI payment, just store status; else store full PayPal result
+	   if (req.body.status === 'QR/UPI Paid') {
+		   order.paymentResult = {
+			   status: 'QR/UPI Paid'
+		   }
+	   } else {
+		   order.paymentResult = {
+			   id: req.body.id,
+			   status: req.body.status,
+			   update_time: req.body.update_time,
+			   email_address: req.body.payer && req.body.payer.email_address,
+		   }
+	   }
 
 		const updatedOrder = await order.save()
 		res.json(updatedOrder)

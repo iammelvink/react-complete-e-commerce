@@ -1,12 +1,19 @@
 import express from 'express'
 import multer from 'multer'
 import path from 'path'
+import fs from 'fs'
+import { protect, admin } from '../middleware/authMiddleware.js'
 
 const router = express.Router()
 
-// Get the project root directory (one level up from backend)
+// Get the uploads directory relative to the backend folder
 const __dirname = path.resolve()
-const uploadsPath = path.join(__dirname, 'uploads')
+const uploadsPath = path.join(__dirname, 'backend', 'uploads')
+
+// Ensure uploads directory exists
+if (!fs.existsSync(uploadsPath)) {
+	fs.mkdirSync(uploadsPath, { recursive: true })
+}
 
 const storage = multer.diskStorage({
 	destination(req, file, cb) {
@@ -49,7 +56,7 @@ const upload = multer({
 	},
 })
 
-router.post('/', (req, res) => {
+router.post('/', protect, admin, (req, res) => {
 	console.log('Upload route hit')
 	console.log('Request headers:', req.headers)
 	
@@ -76,8 +83,9 @@ router.post('/', (req, res) => {
 			}
 			
 			console.log('File uploaded successfully:', req.file.path)
-			// Send back the file path with forward slashes for web compatibility
-			const filePath = `/${req.file.path.replace(/\\/g, '/')}`
+			// Send back the file path relative to uploads for web compatibility
+			const relativePath = path.relative(uploadsPath, req.file.path)
+			const filePath = `/uploads/${relativePath.replace(/\\/g, '/')}`
 			console.log('Sending response:', filePath)
 			res.send(filePath)
 		} catch (error) {
