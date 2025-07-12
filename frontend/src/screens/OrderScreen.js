@@ -13,16 +13,6 @@ import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../constants/orderConstant
 const OrderScreen = ({ match }) => {
   const history = useHistory();
   const orderId = match.params.id;
-  // Redirect after payment success or if paid and not delivered
-  useEffect(() => {
-    if (order && userInfo && !userInfo.isAdmin) {
-      // Redirect to orders list immediately after successful payment
-      if (successPay) {
-        history.push('/orders');
-      }
-    }
-  }, [order, userInfo, successPay, orderId, history]);
-  const [sdkReady, setSdkReady] = useState(false);
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
@@ -36,6 +26,18 @@ const OrderScreen = ({ match }) => {
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+
+  const [sdkReady, setSdkReady] = useState(false);
+
+  // Redirect after payment success or if paid and not delivered
+  useEffect(() => {
+    if (order && userInfo && !userInfo.isAdmin) {
+      // Redirect to customer order list after successful payment
+      if (successPay) {
+        history.push('/myorders');
+      }
+    }
+  }, [order, userInfo, successPay, orderId, history]);
 
   useEffect(() => {
     const addDecimals = (num) => (Math.round(num * 100) / 100).toFixed(2);

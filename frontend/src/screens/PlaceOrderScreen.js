@@ -45,7 +45,8 @@ const PlaceOrderScreen = ({ history }) => {
 			dispatch({ type: USER_DETAILS_RESET })
 			dispatch({ type: ORDER_CREATE_RESET })
 		}
-	}, [history, success, dispatch, order])
+		// eslint-disable-next-line
+	}, [history, success]) // Dependencies, on change they fire off useEffect
 
 	const placeOrderHandler = () => {
 		dispatch(
@@ -161,7 +162,7 @@ const PlaceOrderScreen = ({ history }) => {
 								<Button
 									type='button'
 									className='btn-block'
-									disabled={cart.cartItems.length === 0}
+									disabled={cart.cartItems === 0}
 									onClick={placeOrderHandler}
 								>
 									Place Order
