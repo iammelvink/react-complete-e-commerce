@@ -7,10 +7,14 @@
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
+    "server-backend": "cd backend && nodemon server.js",
     "client": "npm run start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d",
+    "data:refresh": "npm run data:destroy && npm run data:import",
+    "setup": "npm install && npm install --prefix frontend",
+    "kill-ports": "taskkill /F /IM node.exe",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
